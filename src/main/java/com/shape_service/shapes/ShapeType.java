@@ -1,6 +1,6 @@
 package com.shape_service.shapes;
 
-public enum Shapes {
+public enum ShapeType {
     SQUARE,
     RECTANGLE,
     CIRCLE,

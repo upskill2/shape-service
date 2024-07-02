@@ -1,9 +1,10 @@
 package com.shape_service.controller;
 
-import com.shape_service.dao.response.AreaServiceResponse;
-import com.shape_service.dao.request.BaseAreaServiceRequest;
-import com.shape_service.service.AreaCalculatorService;
+import com.shape_service.dao.request.BaseShapeServiceRequest;
+import com.shape_service.dao.response.ShapeServiceResponse;
+import com.shape_service.service.ShapeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,16 +14,13 @@ import javax.validation.constraints.NotEmpty;
 @RequiredArgsConstructor
 public class ShapeController {
 
-    private final AreaCalculatorService service;
+    private final ShapeService service;
 
-    @PostMapping ("/shape")
-    public AreaServiceResponse calculate (@Valid @RequestBody BaseAreaServiceRequest request,
-                                         @NotEmpty @RequestParam String shapeType) {
-
-        final double area = service.calculateArea (request, shapeType);
-        return AreaServiceResponse.builder ()
-                .squareArea (area)
-                .build ();
+    @PostMapping (value = "/shape", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<ShapeServiceResponse> calculate (@Valid @RequestBody BaseShapeServiceRequest request,
+                                                           @NotEmpty @RequestParam String calculationType,
+                                                           @NotEmpty @RequestParam String shapeType) {
+        return ResponseEntity.ok (service.calculate (request, shapeType, calculationType));
     }
 
 }

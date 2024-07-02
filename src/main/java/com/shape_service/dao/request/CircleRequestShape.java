@@ -7,9 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TriangleAreaRequest extends BaseAreaServiceRequest {
+public class CircleRequestShape extends BaseShapeServiceRequest {
 
-    private double base;
-    private double height;
+    private double radius;
 
 }

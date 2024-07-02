@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RectangleAreaRequest extends BaseAreaServiceRequest {
+public class RectangleRequestShape extends BaseShapeServiceRequest {
 
     private double length;
     private double width;
