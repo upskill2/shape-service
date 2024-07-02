@@ -1,0 +1,7 @@
+/target/
+**/Workers/Spark/Wip/*
+.settings
+.classpath
+.project
+.idea/
+*.iml
