@@ -2,6 +2,8 @@ package com.shape_service.dao.request;
 
 import lombok.*;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,6 +11,6 @@ import lombok.*;
 @Builder
 public class RectangleRequestShape extends BaseShapeServiceRequest {
 
-    private double length;
-    private double width;
+    private Optional<Double> length;
+    private Optional<Double> width;
 }

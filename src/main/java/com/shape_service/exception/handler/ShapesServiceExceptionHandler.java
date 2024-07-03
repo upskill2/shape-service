@@ -1,6 +1,7 @@
 package com.shape_service.exception.handler;
 
-
+import com.shape_service.exception.MissingShapeParametersException;
+import com.shape_service.exception.NegativeShapeParameterException;
 import com.shape_service.exception.UnsupportedCalculationTypeException;
 import com.shape_service.exception.UnsupportedShapeException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,18 +16,18 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Slf4j
-public class ShapesAreaCalculatorExceptionHandler {
+public class ShapesServiceExceptionHandler {
 
     @ExceptionHandler (UnsupportedShapeException.class)
     public ResponseEntity<Object> handleUnsupportedShape (UnsupportedShapeException exception) {
         log.error ("Unsupported shape: {}", exception.getMessage ());
-        return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<> (String.format ("Unsupported shape: %s", exception.getMessage ()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler (UnsupportedCalculationTypeException.class)
-    public ResponseEntity<Object> handleUnsupportedCalculationType (UnsupportedCalculationTypeException exception) {
-        log.error ("Unsupported shape: {}", exception.getMessage ());
-        return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> handleUnsupportedCalculation (UnsupportedCalculationTypeException exception) {
+        log.error ("Unsupported calculation type: {}", exception.getMessage ());
+        return new ResponseEntity<> (String.format ("Unsupported calculation type: %s", exception.getMessage ()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler (MethodArgumentNotValidException.class)
@@ -41,8 +42,20 @@ public class ShapesAreaCalculatorExceptionHandler {
     }
 
     @ExceptionHandler (MissingServletRequestParameterException.class)
-    public ResponseEntity<Object> handleInternal (MissingServletRequestParameterException exception) {
-        log.error ("Unsupported shape: {}", exception.getMessage ());
+    public ResponseEntity<Object> handleMissingRequestParams (MissingServletRequestParameterException exception) {
+        log.error ("Missing request params: {}", exception.getMessage ());
+        return new ResponseEntity<> (exception.getMessage (), HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @ExceptionHandler (MissingShapeParametersException.class)
+    public ResponseEntity<Object> handleMissingShapeParams (MissingShapeParametersException exception) {
+        log.error ("Missing shape params/fields: {}", exception.getMessage ());
+        return new ResponseEntity<> (exception.getMessage (), HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @ExceptionHandler (NegativeShapeParameterException.class)
+    public ResponseEntity<Object> handleNegativeShapeParams (NegativeShapeParameterException exception) {
+        log.error ("Negative request params: {}", exception.getMessage ());
         return new ResponseEntity<> (exception.getMessage (), HttpStatus.EXPECTATION_FAILED);
     }
 

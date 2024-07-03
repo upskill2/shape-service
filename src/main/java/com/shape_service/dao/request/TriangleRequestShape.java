@@ -2,6 +2,8 @@ package com.shape_service.dao.request;
 
 import lombok.*;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,9 +11,8 @@ import lombok.*;
 @Builder
 public class TriangleRequestShape extends BaseShapeServiceRequest {
 
-    private double triangleBase;
-    private double height;
-    private double triangleSide2;
-    private double triangleSide3;
-
+    private Optional<Double> triangleBase;
+    private Optional<Double> height;
+    private Optional<Double> triangleSide2;
+    private Optional<Double> triangleSide3;
 }
